@@ -10,6 +10,6 @@ resource "aws_instance" "Ec2Instance" {
     security_groups = "my-sg"
 
     tags = {
-      Name = 
+      Name = each.key
     }
 }
