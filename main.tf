@@ -9,7 +9,10 @@ resource "aws_instance" "Ec2Instance" {
     key_name = "mumbai-key"
     security_groups = ["my-sg"]
     count = 3
+    # tags = {
+    #   Name = "Ec2Instance-${count.index}"
+    # }
     tags = {
-      Name = "Ec2Instance-${count.index}"
+      Name = "Ec2Instance-${count.index + 1}"
     }
 }
