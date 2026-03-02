@@ -9,7 +9,7 @@ resource "aws_instance" "Ec2Instance" {
     # key_name = aws_key_pair.generated.key_name
     key_name = "mumbai-key"
     # vpc_security_group_ids = [ aws_security_group.my-sg-1.id ]
-    vpc_security_group_ids = [ "my-sg" ]
+    vpc_security_group_ids = [ "sg-0002f6ecceaad3bdc" ]
     # count = 3
     # tags = {
     #   Name = "Ec2Instance-${count.index}"
