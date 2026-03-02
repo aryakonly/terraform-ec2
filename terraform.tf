@@ -46,7 +46,15 @@ resource "aws_security_group" "my-sg-1" {
   }
 }
 
-resource "aws_key_pair" "my-mumbai-key" {
+resource "tls_private_key" "algo" {
+  algorithm = "RSA"
+}
+resource "aws_key_pair" "generated" {
   key_name   = "my-mumbai-key"
-  public_key = file("~/.ssh/mumbai-key.pub")
+  public_key = tls_private_key.algo.public_key_openssh
+}
+
+resource "local_file" "save" {
+  content = tls_private_key.algo.private_key_openssh
+  filename = "my-mumbai-key.pem"
 }
