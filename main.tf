@@ -9,7 +9,7 @@ resource "aws_instance" "Ec2Instance" {
     ami           = "ami-051a31ab2f4d498f5"
     instance_type = "t3.micro"
     key_name = "mumbai-key"
-    vpc_security_group_ids = [ aws_security_group.my-sg.id ]
+    vpc_security_group_ids = [ aws_security_group.my-sg-1.id ]
     # count = 3
     # tags = {
     #   Name = "Ec2Instance-${count.index}"
@@ -19,8 +19,8 @@ resource "aws_instance" "Ec2Instance" {
       Name = "Ec2Instance"
     }
 }
-resource "aws_security_group" "my-sg" {
-  name        = "my-sg"
+resource "aws_security_group" "my-sg-1" {
+  name        = "my-sg-1"
   description = "Allow SSH , HTTP and HTTPS traffic"
   ingress {
     from_port   = 22
