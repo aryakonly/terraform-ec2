@@ -1,3 +1,5 @@
+#https://github.com/aryakonly/terraform-ec2.git
+
 provider "aws" {
     region = "ap-south-1"
 }
@@ -19,7 +21,7 @@ resource "aws_instance" "Ec2Instance" {
 }
 resource "aws_security_group" "my-sg" {
   name        = "my-sg"
-  description = "Allow SSH and HTTP traffic"
+  description = "Allow SSH , HTTP and HTTPS traffic"
   ingress {
     from_port   = 22
     to_port     = 22
@@ -29,6 +31,12 @@ resource "aws_security_group" "my-sg" {
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
