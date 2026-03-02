@@ -64,7 +64,7 @@ resource "local_file" "save" {
 */
 
 resource "aws_ebs_volume" "my-volume" {
-  availability_zone = "ap-south-1a"
+  availability_zone = "ap-south-1b"
   size = 10
   type = "gp3"
 
