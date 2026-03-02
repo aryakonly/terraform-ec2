@@ -1,7 +1,7 @@
 provider "aws" {
     region = "ap-south-1"
 }
-
+/*
 resource "aws_instance" "Ec2Instance" {
   #for_each = toset(["instance1", "instance2", "instance3"])
     ami           = "ami-051a31ab2f4d498f5"
@@ -57,4 +57,14 @@ resource "aws_key_pair" "generated" {
 resource "local_file" "save" {
   content = tls_private_key.algo.private_key_openssh
   filename = "my-mumbai-key.pem"
+}
+*/
+resource "aws_ebs_volume" "my-volume" {
+  availability_zone = "ap-south-1a"
+  size = 10
+  type = "gp3"
+
+  tags = {
+    Name = "my-volume"
+  }
 }
