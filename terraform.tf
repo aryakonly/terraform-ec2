@@ -6,7 +6,7 @@ resource "aws_instance" "Ec2Instance" {
   #for_each = toset(["instance1", "instance2", "instance3"])
     ami           = "ami-051a31ab2f4d498f5"
     instance_type = "t3.micro"
-    # key_name = "mumbai-key"
+    key_name = aws_key_pair.generated.key_name
     vpc_security_group_ids = [ aws_security_group.my-sg-1.id ]
     # count = 3
     # tags = {
