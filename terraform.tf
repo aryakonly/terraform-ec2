@@ -1,15 +1,15 @@
 provider "aws" {
-    region = "ap-south-1"
+    region = var.region_name
 }
 
 resource "aws_instance" "Ec2Instance" {
   #for_each = toset(["instance1", "instance2", "instance3"])
-    ami           = "ami-051a31ab2f4d498f5"
-    instance_type = "t3.micro"
+    ami           = var.image
+    instance_type = var.instance_type
     # key_name = aws_key_pair.generated.key_name
-    key_name = "mumbai-key"
+    key_name = aws_key_pair.generated.id
     # vpc_security_group_ids = [ aws_security_group.my-sg-1.id ]
-    vpc_security_group_ids = [ "sg-0002f6ecceaad3bdc" ]
+    vpc_security_group_ids = [ aws_security_group.my-sg-1.id ]
     # count = 3
     # tags = {
     #   Name = "Ec2Instance-${count.index}"
@@ -19,7 +19,7 @@ resource "aws_instance" "Ec2Instance" {
       Name = "Ec2Instance"
     }
 }
-/*
+
 resource "aws_security_group" "my-sg-1" {
   name        = "my-sg-1"
   description = "Allow SSH , HTTP and HTTPS traffic"
@@ -61,8 +61,7 @@ resource "local_file" "save" {
   content = tls_private_key.algo.private_key_openssh
   filename = "my-mumbai-key.pem"
 }
-*/
-
+/*
 resource "aws_ebs_volume" "my-volume" {
   availability_zone = "ap-south-1b"
   size = 10
@@ -78,3 +77,4 @@ resource "aws_volume_attachment" "attach" {
   volume_id = aws_ebs_volume.my-volume.id
   instance_id = aws_instance.Ec2Instance.id  
 }
+*/
