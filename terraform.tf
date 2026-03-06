@@ -20,12 +20,14 @@ resource "aws_instance" "Ec2Instance" {
     yum install httpd -y
     systemctl start httpd
     systemctl enable httpd
-    echo "<h1> this is user-data </h1>" > /var/www/html/index.html
+    yum install git -y
+    git clone https://github.com/aryakonly/static-website.git
+    mv static-website/* /var/www/html/
     EOF
 
     tags = {
       # Name = "Ec2Instance-${count.index + 1}"
-      Name = "Ec2Instance"
+      Name = var.instance_name
     }
 }
 
