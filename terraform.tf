@@ -14,6 +14,15 @@ resource "aws_instance" "Ec2Instance" {
     # tags = {
     #   Name = "Ec2Instance-${count.index}"
     # }
+
+    user_data = <<-EOF
+    #!/bin/bash
+    yum install httpd -y
+    systemctl start httpd
+    systemctl enable httpd
+    echo "<h1> this is user-data </h1>" > /var/www/html/index.html
+    EOF
+
     tags = {
       # Name = "Ec2Instance-${count.index + 1}"
       Name = "Ec2Instance"
