@@ -7,31 +7,28 @@ resource "aws_instance" "Ec2Instance" {
     ami           = var.image
     instance_type = var.instance_type
     # key_name = aws_key_pair.generated.key_name
-    key_name = aws_key_pair.generated.id
+    key_name = var.key-pair
     # vpc_security_group_ids = [ aws_security_group.my-sg-1.id ]
-    vpc_security_group_ids = [ aws_security_group.my-sg-1.id ]
+    vpc_security_group_ids = var.sg
     # count = 3
     # tags = {
     #   Name = "Ec2Instance-${count.index}"
     # }
 
-
-    # user_data = <<-EOF
-    # #!/bin/bash
-    # yum install httpd -y
-    # systemctl start httpd
-    # systemctl enable httpd
-    # yum install git -y
-    # git clone https://github.com/aryakonly/static-website.git
-    # mv static-website/* /var/www/html/
-    # EOF
+    user_data = <<-EOF
+    #!/bin/bash
+    yum install httpd -y
+    systemctl start httpd
+    systemctl enable httpd
+    echo "<h1>This is web-server</h1>" > /var/www/html/index.html
+    EOF
 
     tags = {
       # Name = "Ec2Instance-${count.index + 1}"
       Name = var.instance_name
     }
 }
-
+/*
 resource "aws_security_group" "my-sg-1" {
   name        = "my-sg-1"
   description = "Allow SSH , HTTP and HTTPS traffic"
@@ -61,6 +58,13 @@ resource "aws_security_group" "my-sg-1" {
   }
 }
 
+
+
+data "aws_security_group" "name" {
+  name = "my-sg"
+  vpc_id = "vpc-0e8c799f8edc4f620"
+}
+
 resource "tls_private_key" "algo" {
   algorithm = "RSA"
 }
@@ -73,7 +77,7 @@ resource "local_file" "save" {
   content = tls_private_key.algo.private_key_openssh
   filename = "my-mumbai-key.pem"
 }
-/*
+
 resource "aws_ebs_volume" "my-volume" {
   availability_zone = "ap-south-1b"
   size = 10

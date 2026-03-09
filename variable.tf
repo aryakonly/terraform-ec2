@@ -11,3 +11,11 @@ variable "instance_type" {
 variable "instance_name" {
   default = "static-webiste"
 }
+
+variable "sg" {
+  default = "sg-0002f6ecceaad3bdc"
+}
+
+variable "key-pair" {
+  default = "mumbai-key"
+}
