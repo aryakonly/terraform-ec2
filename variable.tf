@@ -13,7 +13,7 @@ variable "instance_name" {
 }
 
 variable "sg" {
-  default = "sg-0002f6ecceaad3bdc"
+  default = ["sg-0002f6ecceaad3bdc"]
 }
 
 variable "key-pair" {
